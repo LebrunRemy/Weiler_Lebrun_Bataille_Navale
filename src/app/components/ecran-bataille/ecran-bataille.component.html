@@ -15,9 +15,6 @@
     </div>
 
     <div class="battle-actions">
-      <button class="btn-pass" *ngIf="state.canPassTurn()" (click)="state.passTurnNow()">
-        Passer le tour
-      </button>
       <button class="btn-ghost" (click)="state.toggleTheme()">
         Thème : {{ state.theme() === 'dark' ? 'Sombre' : 'Clair' }}
       </button>
@@ -57,7 +54,7 @@
         </div>
 
         <div class="legend">
-          ✕ = Touché | ○ = Manqué | ~ = Inexploré
+          ✕ = Touché | ○ = Manqué
         </div>
       </div>
 

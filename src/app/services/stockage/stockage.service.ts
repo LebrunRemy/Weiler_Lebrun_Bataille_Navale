@@ -2,24 +2,21 @@ import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ServiceStockage {
-  private store = signal<Record<string, string>>({});
+  private store = signal<Record<string, unknown>>({});
 
   getString(key: string, fallback = ''): string {
     const value = this.store()[key];
-    return value ?? fallback;
+    return typeof value === 'string' ? value : fallback;
   }
 
   getBoolean(key: string, fallback = false): boolean {
     const value = this.store()[key];
-    if (value == null) return fallback;
-    return value === 'true';
+    return typeof value === 'boolean' ? value : fallback;
   }
 
   getNumber(key: string, fallback = 0): number {
     const value = this.store()[key];
-    if (value == null) return fallback;
-    const n = Number(value);
-    return Number.isFinite(n) ? n : fallback;
+    return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
   }
 
   setString(key: string, value: string) {
@@ -27,10 +24,10 @@ export class ServiceStockage {
   }
 
   setBoolean(key: string, value: boolean) {
-    this.store.update(current => ({ ...current, [key]: String(value) }));
+    this.store.update(current => ({ ...current, [key]: value }));
   }
 
   setNumber(key: string, value: number) {
-    this.store.update(current => ({ ...current, [key]: String(value) }));
+    this.store.update(current => ({ ...current, [key]: value }));
   }
 }
