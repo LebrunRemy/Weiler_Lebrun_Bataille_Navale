@@ -1,0 +1,57 @@
+<h1>⚓ BATAILLE NAVALE</h1>
+    <div>
+      <div class="name-field">
+        <input placeholder="Nom du Joueur 1" [ngModel]="player1Name" (ngModelChange)="player1Name = $event" />
+        <button class="btn-ghost btn-small" (click)="state.randomizePlayerName(0)">🎲</button>
+      </div>
+      <div class="name-field" *ngIf="!state.vsAI(); else aiName">
+        <input placeholder="Nom du Joueur 2" [ngModel]="player2Name" (ngModelChange)="player2Name = $event" />
+        <button class="btn-ghost btn-small" (click)="state.randomizePlayerName(1)">🎲</button>
+      </div>
+      <ng-template #aiName>
+        <div class="name-field">
+          <input placeholder="Nom de l'IA" [ngModel]="player2Name" (ngModelChange)="player2Name = $event" />
+          <button class="btn-ghost btn-small" (click)="state.randomizePlayerName(1)">🎲</button>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="start-options">
+      <label class="checkbox">
+        <input type="checkbox" [ngModel]="vsAI" (ngModelChange)="vsAI = $event" />
+        Jouer contre l'IA
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" [ngModel]="modeRapide" (ngModelChange)="modeRapide = $event" />
+        Mode rapide (grille 6x6)
+      </label>
+      <label *ngIf="vsAI">
+        Difficulté :
+        <select [ngModel]="difficulteIA" (ngModelChange)="difficulteIA = $event">
+          <option [ngValue]="'facile'">Facile</option>
+          <option [ngValue]="'moyen'">Moyen</option>
+          <option [ngValue]="'difficile'">Difficile</option>
+        </select>
+      </label>
+      <label>
+        Temps par tour :
+        <select [ngModel]="battleTimerSeconds" (ngModelChange)="battleTimerSeconds = $event" [disabled]="noTimer">
+          <option [ngValue]="20">20s</option>
+          <option [ngValue]="30">30s</option>
+          <option [ngValue]="45">45s</option>
+        </select>
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" [ngModel]="noTimer" (ngModelChange)="noTimer = $event" />
+        Mode sans timer
+      </label>
+      <button class="btn-ghost" (click)="state.toggleTheme()">
+        Thème : {{ state.theme() === 'dark' ? 'Sombre' : 'Clair' }}
+      </button>
+    </div>
+
+    <button
+      (click)="state.startGame()"
+      [disabled]="!state.players()[0].name || (!state.players()[1].name && !state.vsAI())">
+      ▶ Commencer la Bataille
+    </button>

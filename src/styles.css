@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0f1115 0%, #161a22 100%);
+  min-height: 100vh;
+  color: #b9c0cd;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.theme-light {
+  background: linear-gradient(135deg, #f1f3f7 0%, #e5e9f0 100%);
+  color: #2b2f3a;
+}

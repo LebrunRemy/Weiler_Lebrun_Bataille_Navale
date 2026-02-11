@@ -1,0 +1,75 @@
+<h2>⚓ {{ state.players()[state.currentPlayer()].name }} – À Toi de Tirer !</h2>
+    <div class="battle-banner">Tour de {{ state.players()[state.currentPlayer()].name }}</div>
+
+    <div class="timer" *ngIf="!state.noTimer()" [class.warning]="state.timer() <= 5">
+      ⏱ {{ state.timer() }}s
+    </div>
+
+    <p class="message" *ngIf="state.message()">{{ state.message() }}</p>
+
+    <div class="battle-stats">
+      Tirs : <strong>{{ state.stats()[state.currentPlayer()].shots }}</strong> |
+      Touchés : <strong>{{ state.stats()[state.currentPlayer()].hits }}</strong> |
+      Manqués : <strong>{{ state.stats()[state.currentPlayer()].misses }}</strong> |
+      Précision : <strong>{{ state.getAccuracy(state.currentPlayer()) }}%</strong>
+    </div>
+
+    <div class="battle-actions">
+      <button class="btn-pass" *ngIf="state.canPassTurn()" (click)="state.passTurnNow()">
+        Passer le tour
+      </button>
+      <button class="btn-ghost" (click)="state.toggleTheme()">
+        Thème : {{ state.theme() === 'dark' ? 'Sombre' : 'Clair' }}
+      </button>
+    </div>
+
+    <div class="battle-content">
+      <div class="battle-spacer" aria-hidden="true"></div>
+      <div class="battle-left">
+        <div class="battle-summary">
+          Dernière action : {{ state.message() ? state.message() : 'Aucune' }}
+        </div>
+
+        <div class="grid-wrapper">
+          <div class="grid-coords-top">
+            <span class="coord-empty"></span>
+            <span *ngFor="let i of state.getIndices()" class="coord">{{ i + 1 }}</span>
+          </div>
+          <div class="grid-with-coords">
+            <div class="grid-coords-left">
+              <span *ngFor="let i of state.getIndices()" class="coord">
+                {{ state.getGridCoordinates(i) }}
+              </span>
+            </div>
+            <div class="grid">
+              <div class="row" *ngFor="let row of state.players()[state.currentPlayer()].targetGrid; let x = index">
+                <div
+                  class="cell"
+                  *ngFor="let cell of row; let y = index"
+                  (click)="state.shoot(x, y)"
+                  [ngClass]="cell"
+                  [class.disabled]="cell !== '~' || state.isAIPlayer(state.currentPlayer())"
+                  [class.hoverable]="cell === '~' && !state.isAIPlayer(state.currentPlayer())">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="legend">
+          ✕ = Touché | ○ = Manqué | ~ = Inexploré
+        </div>
+      </div>
+
+      <aside class="action-history">
+        <h3>Historique des actions</h3>
+        <div class="history-list" *ngIf="state.actionHistory().length > 0; else emptyHistory">
+          <div *ngFor="let item of state.actionHistory()" class="history-item" [ngClass]="item.type">
+            {{ item.text }}
+          </div>
+        </div>
+        <ng-template #emptyHistory>
+          <div class="history-empty">Aucune action pour le moment.</div>
+        </ng-template>
+      </aside>
+    </div>

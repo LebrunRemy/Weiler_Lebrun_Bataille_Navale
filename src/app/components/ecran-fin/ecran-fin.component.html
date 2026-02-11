@@ -1,0 +1,23 @@
+<h1>★ VICTOIRE ★</h1>
+    <h2 style="font-size: 3em; margin: 30px 0;">{{ state.winner() }}</h2>
+    <div class="end-summary">
+      <div class="summary-item">
+        <strong>{{ state.players()[0].name }}</strong> — Tirs: {{ state.stats()[0].shots }},
+        Touchés: {{ state.stats()[0].hits }}, Manqués: {{ state.stats()[0].misses }},
+        Précision: {{ state.getAccuracy(0) }}%, Coulés: {{ state.stats()[0].sunk }}
+      </div>
+      <div class="summary-item">
+        <strong>{{ state.players()[1].name }}</strong> — Tirs: {{ state.stats()[1].shots }},
+        Touchés: {{ state.stats()[1].hits }}, Manqués: {{ state.stats()[1].misses }},
+        Précision: {{ state.getAccuracy(1) }}%, Coulés: {{ state.stats()[1].sunk }}
+      </div>
+      <div class="summary-item">
+        Durée: {{ state.gameDurationSec() }}s
+      </div>
+    </div>
+    <button (click)="state.resetGame()">
+      ↻ Nouvelle Partie
+    </button>
+    <button class="btn-ghost" (click)="state.resetGameKeepNames()">
+      ↻ Rejouer (mêmes noms)
+    </button>

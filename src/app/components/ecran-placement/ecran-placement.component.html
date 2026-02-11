@@ -1,0 +1,64 @@
+<h2>⚓ {{ state.players()[state.currentPlayer()].name }} – Placement des Navires</h2>
+
+    <div class="timer" *ngIf="!state.noTimer()" [class.warning]="state.timer() <= 10">
+      ⏱ {{ state.timer() }}s
+    </div>
+
+    <div class="placement-info">
+      <p>Glissez-déposez vos navires sur la grille ou utilisez le placement aléatoire</p>
+      <div class="ships-status">
+        Navires placés : <strong>{{ state.getPlacedShipsCount() }}</strong> /
+        {{ state.players()[state.currentPlayer()].ships.length }}
+      </div>
+    </div>
+
+    <div class="ships">
+      <div *ngFor="let ship of state.availableShips()" class="ship-container">
+        <div class="ship-label">{{ ship.name }}</div>
+
+        <div
+          class="ship"
+          draggable="true"
+          (dragstart)="state.startDrag(ship)"
+          [class.horizontal]="ship.horizontal"
+          [class.vertical]="!ship.horizontal"
+          [style.width.px]="ship.horizontal ? ship.size * 35 : 35"
+          [style.height.px]="ship.horizontal ? 35 : ship.size * 35">
+        </div>
+
+        <button (click)="state.rotateShip(ship)">↻ Pivoter</button>
+      </div>
+    </div>
+
+    <button (click)="state.randomPlacement()">⚡ Placement Aléatoire</button>
+
+    <div class="grid-wrapper">
+      <div class="grid-coords-top">
+        <span class="coord-empty"></span>
+        <span *ngFor="let i of state.getIndices()" class="coord">{{ i + 1 }}</span>
+      </div>
+      <div class="grid-with-coords">
+        <div class="grid-coords-left">
+          <span *ngFor="let i of state.getIndices()" class="coord">
+            {{ state.getGridCoordinates(i) }}
+          </span>
+        </div>
+        <div class="grid">
+          <div class="row" *ngFor="let row of state.players()[state.currentPlayer()].shipGrid; let x = index">
+            <div
+              class="cell"
+              *ngFor="let cell of row; let y = index"
+              (dragover)="$event.preventDefault()"
+              (drop)="state.dropShip(x, y)"
+              (click)="state.warnPlacedShip(x, y)"
+              [class.ship]="state.players()[state.currentPlayer()].shipGrid[x][y]"
+              [title]="state.getShipNameAt(state.players()[state.currentPlayer()].shipGrid, x, y)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="state.validatePlacement()" [disabled]="!state.allShipsPlaced()">
+      ✓ Valider le Placement
+    </button>

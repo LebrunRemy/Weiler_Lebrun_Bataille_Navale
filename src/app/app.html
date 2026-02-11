@@ -1,0 +1,30 @@
+<div class="container">
+
+  <div *ngIf="state.phase() === 'start' || !state.phase()">
+    <app-ecran-demarrage></app-ecran-demarrage>
+  </div>
+
+  <div *ngIf="state.phase() === 'transition'" class="transition-screen">
+    <app-ecran-transition></app-ecran-transition>
+  </div>
+
+  <div *ngIf="state.phase() === 'placement1' || state.phase() === 'placement2'">
+    <app-ecran-placement></app-ecran-placement>
+  </div>
+
+  <div *ngIf="state.phase() === 'battle'" class="battle-zone">
+    <app-ecran-bataille></app-ecran-bataille>
+  </div>
+
+  <div *ngIf="state.phase() === 'end'" class="end-screen">
+    <app-ecran-fin></app-ecran-fin>
+  </div>
+
+  <div *ngIf="state.phase() !== 'start' && state.phase() !== 'placement1' && state.phase() !== 'placement2' && state.phase() !== 'transition' && state.phase() !== 'battle' && state.phase() !== 'end'" class="message">
+    Phase inconnue : {{ state.phase() }} — retour à l'accueil
+    <div style="margin-top: 12px;">
+      <app-ecran-demarrage></app-ecran-demarrage>
+    </div>
+  </div>
+
+</div>
