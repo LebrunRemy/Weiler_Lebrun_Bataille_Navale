@@ -20,3 +20,62 @@ Saisie du nom des deux joueurs
 🕶️ Sélection du thème (mode sombre)
 Bouton “Commencer la bataille”
 L’interface est moderne, minimaliste et centrée sur l’expérience utilisateur.
+
+<img width="1080" height="611" alt="image" src="https://github.com/user-attachments/assets/da172025-0a8f-4a39-8383-7eeb6583e3c0" />
+⚓ Placement des navires
+Une fois la partie lancée, chaque joueur accède à l’écran de placement :
+Glisser-déposer des navires sur la grille 10x10
+Rotation des navires avec le bouton “Pivoter”
+Placement aléatoire possible
+Compteur de navires placés
+Validation du placement
+⏱️ Timer actif pendant le placement
+Navires disponibles :
+Porte-avions
+Cuirassé
+Croiseur
+Sous-marin
+Destroyer
+
+<img width="1080" height="611" alt="image" src="https://github.com/user-attachments/assets/1617369b-d2b6-4367-b60f-23d93a766265" />
+
+💥 Phase de tir
+Pendant la bataille :
+Affichage du joueur actif
+Timer dynamique par tour
+Statistiques en temps réel :
+Nombre de tirs
+Touchés
+Manqués
+Précision (%)
+Historique détaillé des actions
+Indication visuelle :
+❌ = Touché
+○ = Manqué
+Le système permet un suivi clair et stratégique de la partie.
+
+<img width="1080" height="611" alt="image" src="https://github.com/user-attachments/assets/53e7e367-7bc7-42c9-9033-f7a1f504b53c" />
+
+📊 Historique & Statistiques
+Un panneau latéral affiche :
+Les dernières actions effectuées
+Les navires coulés
+Les coordonnées touchées
+L’évolution de la partie
+Cela améliore l’aspect compétitif et stratégique du jeu.
+
+<img width="1080" height="611" alt="image" src="https://github.com/user-attachments/assets/81a5511f-3390-443e-8e4c-cee7d983672a" />
+
+🏆 Écran de victoire
+À la fin de la partie, un écran récapitulatif s’affiche :
+🎉 Nom du vainqueur
+Statistiques complètes des deux joueurs :
+Tirs
+Touchés
+Manqués
+Précision
+Nombre de navires coulés
+Durée totale de la partie
+Options :
+Nouvelle partie
+Rejouer avec les mêmes noms
